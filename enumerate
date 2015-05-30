@@ -1,0 +1,56 @@
+const std::vector<std::string> first14 = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen" };
+const std::vector<std::string> prefixes = {"twen", "thir", "for", "fif", "six", "seven", "eigh", "nine"};
+
+std::string partial(unsigned int number) {
+    if( number <= 14 )
+        return first14.at(number);
+    if( number < 20 )
+        return prefixes.at(number-12) + "teen";
+    if( number < 100 ) {
+        unsigned int remainder = number - (static_cast<int>(number/10)*10);
+        return prefixes.at(number/10-2) + (0 != remainder ? "ty " + inttostr(remainder) : "ty");
+    }
+    if( number < 1000 ) {
+        unsigned int remainder = number - (static_cast<int>(number/100)*100);
+        return first14.at(number/100) + (0 != remainder ? " hundred " + inttostr(remainder) : " hundred");
+    }
+    if( number < 1000000 ) {
+        unsigned int thousands = static_cast<int>(number/1000);
+        unsigned int remainder = number - (thousands*1000);
+        return inttostr(thousands) + (0 != remainder ? " thousand " + inttostr(remainder) : " thousand");
+    }
+    if( number < 1000000000 ) {
+        unsigned int millions = static_cast<int>(number/1000000);
+        unsigned int remainder = number - (millions*1000000);
+        return inttostr(millions) + (0 != remainder ? " million " + inttostr(remainder) : " million");
+    }
+    else {return "";}
+}
+std::string inttostr( std::string word )
+{
+    word = std::regex_replace(word,comma,"");
+    unsigned int number = std::stoi(word,nullptr);
+    if( number <= 14 )
+    return first14.at(number);
+    if( number < 20 )
+    return prefixes.at(number-12) + "teen";
+    if( number < 100 ) {
+        unsigned int remainder = number - (static_cast<int>(number/10)*10);
+        return prefixes.at(number/10-2) + (0 != remainder ? "ty " + partial(remainder) : "ty");
+    }
+    if( number < 1000 ) {
+        unsigned int remainder = number - (static_cast<int>(number/100)*100);
+        return first14.at(number/100) + (0 != remainder ? " hundred " + partial(remainder) : " hundred");
+    }
+    if( number < 1000000 ) {
+        unsigned int thousands = static_cast<int>(number/1000);
+        unsigned int remainder = number - (thousands*1000);
+        return partial(thousands) + (0 != remainder ? " thousand " + partial(remainder) : " thousand");
+    }
+    if( number < 1000000000 ) {
+        unsigned int millions = static_cast<int>(number/1000000);
+        unsigned int remainder = number - (millions*1000000);
+        return partial(millions) + (0 != remainder ? " million " + partial(remainder) : " million");
+    }
+    else {return "";}
+}
