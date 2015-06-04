@@ -11,7 +11,7 @@ function getSelectedText() {
 var formext = document.createElement("form");
 formext.setAttribute("method", "POST");
 formext.setAttribute("target", "_blank");
-formext.setAttribute("action", "http://libraryofbabel.info/resourcelocator.cgi");
+formext.setAttribute("action", "https://libraryofbabel.info/resourcelocator.cgi");
 
 var hiddenField = document.createElement("input");
 hiddenField.setAttribute("type", "hidden");
